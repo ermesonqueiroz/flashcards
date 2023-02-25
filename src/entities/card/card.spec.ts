@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { right } from '@common/either'
+import { left } from '@common/either'
 import { InvalidTermError } from '@entities/errors'
 import { Card } from './card'
 
@@ -20,7 +20,7 @@ describe('Card domain entity', () => {
       definition: 'Bar'
     })
 
-    expect(card).toEqual(right(new InvalidTermError(term)))
+    expect(card).toEqual(left(new InvalidTermError(term)))
   })
 
   it('should create card without blank spaces in term', () => {
