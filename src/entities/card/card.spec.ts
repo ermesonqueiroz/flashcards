@@ -13,7 +13,7 @@ describe('Card domain entity', () => {
     expect(card.isRight()).toBeTruthy()
   })
 
-  it('should not create card with blank definition', () => {
+  it('should not create card with blank term', () => {
     const term = '      '
     const card = Card.create({
       term,
