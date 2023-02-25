@@ -1,5 +1,5 @@
-import { type Either, left, right } from '../../common/either'
-import { InvalidTermError } from '../errors/invalid-term'
+import { type Either, left, right } from '@common/either'
+import { InvalidTermError } from '@entities/errors'
 
 export class Term {
   private readonly term: string

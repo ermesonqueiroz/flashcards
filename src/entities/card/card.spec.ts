@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { right } from '../../common/either'
-import { InvalidTermError } from '../errors/invalid-term'
+import { right } from '@common/either'
+import { InvalidTermError } from '@entities/errors'
 import { Card } from './card'
 
 describe('Card domain entity', () => {
