@@ -1,8 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { left } from '@common/either'
-import { InvalidTermError } from '@entities/errors'
 import { Card } from './card'
-import { InvalidDefinitionError } from '@entities/errors/invalid-definition'
+import { InvalidTermError, InvalidDefinitionError } from '@entities/errors/card'
 
 describe('Card domain entity', () => {
   it('should create card', () => {

@@ -1,5 +1,5 @@
 import { type Either, left, right } from '@common/either'
-import { InvalidDefinitionError } from '@entities/errors'
+import { InvalidDefinitionError } from '@entities/errors/card'
 
 export class Definition {
   private readonly definition: string

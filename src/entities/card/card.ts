@@ -2,7 +2,7 @@ import { type CardData } from './card-data'
 import { left, right, type Either } from '@common/either'
 import { Term } from './term'
 import { Definition } from './definition'
-import { InvalidDefinitionError, InvalidTermError } from '@entities/errors'
+import { InvalidDefinitionError, InvalidTermError } from '@entities/errors/card'
 
 export class Card {
   public readonly term: Term
