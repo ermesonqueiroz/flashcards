@@ -16,6 +16,12 @@
       ],
       "@entities/*": [
         "./src/entities/*"
+      ],
+      "@repositories/*": [
+        "./src/repositories/*"
+      ],
+      "@usecases/*": [
+        "./src/usecases/*"
       ]
     }
   }
