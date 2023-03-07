@@ -30,7 +30,7 @@ describe('Create deck use case', () => {
     expect(response).toEqual(left(new InvalidTitleError(title)))
   })
 
-  it('should create card without blank spaces in title', async () => {
+  it('should create deck without blank spaces in title', async () => {
     const cardsRepository = new InMemoryDecksRepository([])
     const createCardUseCase = new CreateDeckUseCase(cardsRepository)
 
