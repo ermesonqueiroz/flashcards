@@ -3,24 +3,36 @@ import { left, right, type Either } from '@common/either'
 import { Term } from './term'
 import { Definition } from './definition'
 import { InvalidDefinitionError, InvalidTermError } from '@entities/errors/card'
+import { Id } from '@entities/common/id'
+import { InvalidIdError } from '@entities/errors/id'
 
 export class Card {
+  public readonly id: Id
+  public readonly deckId: Id
   public readonly term: Term
   public readonly definition: Definition
 
-  private constructor (term: Term, definition: Definition) {
+  private constructor (id: Id, deckId: Id, term: Term, definition: Definition) {
+    this.id = id
+    this.deckId = deckId
     this.term = term
     this.definition = definition
   }
 
-  public static create ({ term, definition }: CardData): Either<InvalidTermError | InvalidDefinitionError, Card> {
+  public static create ({ id, deckId, term, definition }: CardData): Either<InvalidTermError | InvalidDefinitionError, Card> {
+    const idOrError = Id.create(id)
+    const deckIdOrError = Id.create(deckId)
     const termOrError = Term.create(term)
     const definitionOrError = Definition.create(definition)
 
+    if (idOrError.isLeft()) return left(new InvalidIdError(id))
+    if (deckIdOrError.isLeft()) return left(new InvalidIdError(deckId))
     if (termOrError.isLeft()) return left(new InvalidTermError(term))
     if (definitionOrError.isLeft()) return left(new InvalidDefinitionError(definition))
 
     return right(new Card(
+      idOrError.value,
+      deckIdOrError.value,
       termOrError.value,
       definitionOrError.value
     ))

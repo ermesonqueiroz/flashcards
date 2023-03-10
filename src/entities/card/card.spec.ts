@@ -2,10 +2,12 @@ import { describe, it, expect } from 'vitest'
 import { left } from '@common/either'
 import { Card } from './card'
 import { InvalidTermError, InvalidDefinitionError } from '@entities/errors/card'
+import { randomUUID } from 'crypto'
 
 describe('Card domain entity', () => {
   it('should create card', () => {
     const card = Card.create({
+      id: randomUUID(),
       term: 'Foo',
       definition: 'Bar'
     })
@@ -16,6 +18,7 @@ describe('Card domain entity', () => {
   it('should not create card with blank term', () => {
     const term = '      '
     const card = Card.create({
+      id: randomUUID(),
       term,
       definition: 'Bar'
     })
@@ -24,14 +27,17 @@ describe('Card domain entity', () => {
   })
 
   it('should create card without blank spaces in term', () => {
+    const id = randomUUID()
     const term = '   Foo   !'
     const card = Card.create({
+      id,
       term,
       definition: 'Bar'
     })
 
     const expectedTerm = 'Foo !'
     const expectedCard = Card.create({
+      id,
       term: expectedTerm,
       definition: 'Bar'
     })
@@ -43,6 +49,7 @@ describe('Card domain entity', () => {
   it('should not create card with blank definition', () => {
     const definition = '      '
     const card = Card.create({
+      id: randomUUID(),
       term: 'Foo',
       definition
     })
