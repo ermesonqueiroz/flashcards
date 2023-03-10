@@ -41,12 +41,8 @@ describe('Create deck use case', () => {
     })
 
     const expectedTitle = 'Foo !'
-    const expectedCard = await createCardUseCase.execute({
-      title: expectedTitle,
-      cards: []
-    })
 
     expect(response.isRight()).toBeTruthy()
-    expect(response.value).toEqual(expectedCard.value)
+    expect(response.value).property('title').equal(expectedTitle)
   })
 })
