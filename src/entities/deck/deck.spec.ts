@@ -8,8 +8,7 @@ describe('Deck domain entity', () => {
   it('should create deck', () => {
     const deck = Deck.create({
       id: randomUUID(),
-      title: 'My deck',
-      cards: []
+      title: 'My deck'
     })
 
     expect(deck.isRight()).toBeTruthy()
@@ -20,8 +19,7 @@ describe('Deck domain entity', () => {
 
     const deck = Deck.create({
       id: randomUUID(),
-      title,
-      cards: []
+      title
     })
 
     expect(deck).toEqual(left(new InvalidTitleError(title)))

@@ -10,6 +10,7 @@ describe('Create card use case', () => {
     const createCardUseCase = new CreateCardUseCase(cardsRepository)
 
     const response = await createCardUseCase.execute({
+      deckId: 'DECK-ID',
       term: 'Foo',
       definition: 'Bar'
     })
@@ -23,6 +24,7 @@ describe('Create card use case', () => {
 
     const term = '      '
     const response = await createCardUseCase.execute({
+      deckId: 'DECK-ID',
       term,
       definition: 'Bar'
     })
@@ -36,12 +38,14 @@ describe('Create card use case', () => {
 
     const term = '   Foo   !'
     const response = await createCardUseCase.execute({
+      deckId: 'DECK-ID',
       term,
       definition: 'Bar'
     })
 
     const expectedTerm = 'Foo !'
     const expectedCard = await createCardUseCase.execute({
+      deckId: 'DECK-ID',
       term: expectedTerm,
       definition: 'Bar'
     })
@@ -56,6 +60,7 @@ describe('Create card use case', () => {
 
     const definition = '      '
     const card = await createCardUseCase.execute({
+      deckId: 'DECK-ID',
       term: 'Foo',
       definition
     })

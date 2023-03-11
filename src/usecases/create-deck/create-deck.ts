@@ -8,13 +8,12 @@ import { type CreateDeckResponse } from './create-deck-response'
 export class CreateDeckUseCase {
   public constructor (private readonly cardsRepository: DecksRepository) {}
 
-  public async execute ({ title, cards }: CreateDeckRequest): Promise<CreateDeckResponse> {
+  public async execute ({ title }: CreateDeckRequest): Promise<CreateDeckResponse> {
     const id = randomUUID()
 
     const deckOrError = Deck.create({
       id,
-      title,
-      cards
+      title
     })
 
     if (deckOrError.isLeft()) return left(deckOrError.value)
@@ -23,14 +22,12 @@ export class CreateDeckUseCase {
 
     await this.cardsRepository.add({
       id,
-      title: deck.title.value,
-      cards: deck.cards
+      title: deck.title.value
     })
 
     return right({
       id,
-      title: deck.title.value,
-      cards: deck.cards
+      title: deck.title.value
     })
   }
 }

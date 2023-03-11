@@ -10,8 +10,7 @@ describe('Create deck use case', () => {
     const createCardUseCase = new CreateDeckUseCase(decksRepository)
 
     const response = await createCardUseCase.execute({
-      title: 'Foo',
-      cards: []
+      title: 'Foo'
     })
 
     expect(response.isRight()).toBeTruthy()
@@ -23,8 +22,7 @@ describe('Create deck use case', () => {
 
     const title = '      '
     const response = await createCardUseCase.execute({
-      title,
-      cards: []
+      title
     })
 
     expect(response).toEqual(left(new InvalidTitleError(title)))
@@ -36,8 +34,7 @@ describe('Create deck use case', () => {
 
     const title = '   Foo   !'
     const response = await createCardUseCase.execute({
-      title,
-      cards: []
+      title
     })
 
     const expectedTitle = 'Foo !'
