@@ -1,11 +1,11 @@
-import { readFileSync } from 'fs'
 import { ApolloServer, type BaseContext } from '@apollo/server'
 import { startStandaloneServer } from '@apollo/server/standalone'
 import resolvers from '../adapters/presentation/resolvers'
-import path from 'path'
 import { type DecksRepository, type CardsRepository } from '@repositories/ports'
 import { MysqlHelper } from '../external/repositories/mysql/helpers/mysql-helper'
 import { MysqlCardsRepository, MysqlDecksRepository } from '../external/repositories/mysql'
+import typeDefs from './graphql/schema'
+import 'dotenv/config'
 
 export interface MyContext extends BaseContext {
   dataSources: {
@@ -17,11 +17,6 @@ export interface MyContext extends BaseContext {
 async function main () {
   try {
     MysqlHelper.connect(process.env.DATABASE_URL as string)
-
-    const typeDefs = readFileSync(
-      path.resolve(__dirname, './graphql/schema.graphql'),
-      { encoding: 'utf-8' }
-    )
 
     const server = new ApolloServer<MyContext>({
       typeDefs,
