@@ -8,6 +8,7 @@ describe('Card domain entity', () => {
   it('should create card', () => {
     const card = Card.create({
       id: randomUUID(),
+      deckId: 'DECK-ID',
       term: 'Foo',
       definition: 'Bar'
     })
@@ -19,6 +20,7 @@ describe('Card domain entity', () => {
     const term = '      '
     const card = Card.create({
       id: randomUUID(),
+      deckId: 'DECK-ID',
       term,
       definition: 'Bar'
     })
@@ -31,6 +33,7 @@ describe('Card domain entity', () => {
     const term = '   Foo   !'
     const card = Card.create({
       id,
+      deckId: 'DECK-ID',
       term,
       definition: 'Bar'
     })
@@ -38,6 +41,7 @@ describe('Card domain entity', () => {
     const expectedTerm = 'Foo !'
     const expectedCard = Card.create({
       id,
+      deckId: 'DECK-ID',
       term: expectedTerm,
       definition: 'Bar'
     })
@@ -50,6 +54,7 @@ describe('Card domain entity', () => {
     const definition = '      '
     const card = Card.create({
       id: randomUUID(),
+      deckId: 'DECK-ID',
       term: 'Foo',
       definition
     })
