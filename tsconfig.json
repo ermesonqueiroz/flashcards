@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2016",
+    "target": "es2018",
     "module": "commonjs",
     "outDir": "dist",
     "removeComments": true,
@@ -23,6 +23,7 @@
       "@usecases/*": [
         "./src/usecases/*"
       ]
-    }
-  }
+    },
+  },
+  "include": ["src"]
 }
