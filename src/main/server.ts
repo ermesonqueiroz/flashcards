@@ -4,8 +4,9 @@ import resolvers from '../adapters/presentation/resolvers'
 import { type DecksRepository, type CardsRepository } from '@repositories/ports'
 import { MysqlHelper } from '../external/repositories/mysql/helpers/mysql-helper'
 import { MysqlCardsRepository, MysqlDecksRepository } from '../external/repositories/mysql'
-import typeDefs from './graphql/schema'
+import { readFileSync } from 'fs'
 import 'dotenv/config'
+import { resolve } from 'path'
 
 export interface MyContext extends BaseContext {
   dataSources: {
@@ -17,6 +18,8 @@ export interface MyContext extends BaseContext {
 async function main () {
   try {
     MysqlHelper.connect(process.env.DATABASE_URL as string)
+
+    const typeDefs = readFileSync(resolve(__dirname, '../../schema.graphql'), { encoding: 'utf-8' })
 
     const server = new ApolloServer<MyContext>({
       typeDefs,

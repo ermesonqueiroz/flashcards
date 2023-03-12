@@ -2,12 +2,14 @@
   "name": "flashcards",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/main/server.js",
   "scripts": {
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "dev": "tsnd --transpile-only --respawn src/server.ts",
-    "build": "tsc && tsc-alias -p tsconfig.json"
+    "build": "npm run generate && tsc && tsc-alias -p tsconfig.json",
+    "generate": "graphql-codegen --config codegen.yml",
+    "start": "npm run build && node ."
   },
   "keywords": [],
   "author": "",
