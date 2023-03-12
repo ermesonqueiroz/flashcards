@@ -11,4 +11,8 @@ export class InMemoryCardsRepository implements CardsRepository {
   public async add (card: CardData): Promise<void> {
     this.items.push(card)
   }
+
+  public async findByDeckId (deckId: string): Promise<CardData[]> {
+    return this.items.filter((card) => card.deckId === deckId)
+  }
 }

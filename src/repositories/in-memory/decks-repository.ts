@@ -11,4 +11,12 @@ export class InMemoryDecksRepository implements DecksRepository {
   public async add (deck: DeckData): Promise<void> {
     this.items.push(deck)
   }
+
+  public async findById (id: string): Promise<DeckData | null> {
+    return this.items.find((deck) => deck.id === id) ?? null
+  }
+
+  public async findAll (): Promise<DeckData[]> {
+    return this.items
+  }
 }

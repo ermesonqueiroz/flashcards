@@ -1,11 +1,11 @@
-import mysql, { type Connection } from 'mysql2'
+import mysql, { type Connection } from 'mysql2/promise'
 
 export const MysqlHelper = {
   client: {} as Connection,
-  connect (uri: string) {
-    this.client = mysql.createConnection(uri)
+  async connect (uri: string) {
+    this.client = await mysql.createConnection(uri)
   },
-  disconnect () {
-    this.client.end()
+  async disconnect () {
+    await this.client.end()
   }
 }
