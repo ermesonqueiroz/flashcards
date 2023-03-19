@@ -2,7 +2,7 @@ import { type Either, left, right } from '@common/either'
 import { InvalidIdError } from '@entities/errors/id'
 
 export class Id {
-  public readonly id: string
+  private readonly id: string
 
   private constructor (id: string) {
     this.id = id
