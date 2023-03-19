@@ -1,0 +1,9 @@
+version: '2.4'
+services:
+  relearn_mysql_dev:
+    container_name: 'relearn-mysql-dev'
+    image: 'mysql'
+    env_file:
+      - .env
+    ports:
+      - '33060:3306'

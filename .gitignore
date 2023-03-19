@@ -2,4 +2,3 @@ node_modules/
 coverage/
 dist/
 src/__generated__
-.env
