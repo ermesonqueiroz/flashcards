@@ -7,3 +7,5 @@ generates:
     config:
       useIndexSignature: true
       contextType: "../main/server#MyContext"
+      scalars:
+        Date: Date

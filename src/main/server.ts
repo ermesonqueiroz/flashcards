@@ -8,6 +8,10 @@ import { resolve } from 'path'
 import { type DifficultiesRepository } from '@repositories/ports/difficulties-repository'
 import { PrismaCardsRepository, PrismaDecksRepository, PrismaDifficultiesRepository } from 'src/external/repositories/prisma'
 import { PrismaClient } from '@prisma/client'
+import {
+  typeDefs as scalarTypeDefs,
+  resolvers as scalarResolvers
+} from 'graphql-scalars'
 
 export interface MyContext extends BaseContext {
   dataSources: {
@@ -24,8 +28,14 @@ async function main () {
     const typeDefs = readFileSync(resolve(__dirname, '../../schema.graphql'), { encoding: 'utf-8' })
 
     const server = new ApolloServer<MyContext>({
-      typeDefs,
-      resolvers
+      typeDefs: [
+        ...scalarTypeDefs,
+        typeDefs
+      ],
+      resolvers: {
+        ...scalarResolvers,
+        ...resolvers
+      }
     })
 
     const { url } = await startStandaloneServer(server, {
