@@ -5,18 +5,30 @@ import { Definition } from './definition'
 import { InvalidDefinitionError, InvalidTermError } from '@entities/errors/card'
 import { Id } from '@entities/common/id'
 import { InvalidIdError } from '@entities/errors/id'
+import { type Difficulty } from '@entities/difficulty/difficulty'
 
 export class Card {
   public readonly id: Id
   public readonly deckId: Id
   public readonly term: Term
   public readonly definition: Definition
+  public readonly lastDifficulty?: Difficulty
+  public readonly lastView?: Date
 
-  private constructor (id: Id, deckId: Id, term: Term, definition: Definition) {
+  private constructor (
+    id: Id,
+    deckId: Id,
+    term: Term,
+    definition: Definition,
+    lastDifficulty?: Difficulty,
+    lastView?: Date
+  ) {
     this.id = id
     this.deckId = deckId
     this.term = term
     this.definition = definition
+    this.lastDifficulty = lastDifficulty
+    this.lastView = lastView
   }
 
   public static create ({ id, deckId, term, definition }: CardData): Either<InvalidTermError | InvalidDefinitionError, Card> {

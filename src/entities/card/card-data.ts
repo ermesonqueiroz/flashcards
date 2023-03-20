@@ -3,4 +3,6 @@ export interface CardData {
   term: string
   definition: string
   deckId: string
+  lastDifficulty?: string
+  lastView?: Date
 }
