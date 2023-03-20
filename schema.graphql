@@ -1,8 +1,17 @@
+scalar Date
+
 type Card {
   id: ID!
   deckId: ID!
   term: String!
   definition: String!
+  lastView: Date
+  lastDifficulty: String
+}
+
+type Difficulty {
+  name: String!
+  weight: Int!
 }
 
 type Deck {
@@ -24,4 +33,6 @@ type Query {
 type Mutation {
   addCard(deckId: ID!, term: String!, definition: String!): Card!
   addDeck(title: String!): Deck!
+  addDifficulty(name: String!, weight: Int!): Difficulty!
+  cardDone(cardId: ID!, difficulty: String!): Boolean!
 }
