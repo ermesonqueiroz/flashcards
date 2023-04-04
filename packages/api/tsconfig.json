@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "commonjs",
+    "outDir": "dist",
+    "removeComments": true,
+    "newLine": "lf",
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "baseUrl": "./",
+    "paths": {
+      "@common/*": [
+        "./src/common/*"
+      ],
+      "@entities/*": [
+        "./src/entities/*"
+      ],
+      "@repositories/*": [
+        "./src/repositories/*"
+      ],
+      "@usecases/*": [
+        "./src/usecases/*"
+      ]
+    },
+  },
+  "include": ["src/**/*"]
+}

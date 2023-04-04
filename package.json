@@ -1,53 +1,18 @@
 {
-  "name": "flashcards",
+  "name": "relearn",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/main/server.js",
+  "license": "MIT",
   "scripts": {
-    "test": "vitest",
-    "coverage": "vitest run --coverage",
-    "dev": "ts-node-dev -r tsconfig-paths/register src/main/server.ts",
-    "predev": "npm run services:up",
-    "postdev": "npm run services:stop",
-    "build": "npm run generate && tsc && tsc-alias -p tsconfig.json",
-    "generate": "graphql-codegen --config codegen.yml",
-    "start": "npm run build && node .",
-    "services:up": "docker compose -f docker-compose.development.yml up -d",
-    "services:stop": "docker compose -f docker-compose.development.yml stop"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "workspaces": [
+    "./packages/*"
+  ],
   "devDependencies": {
-    "@graphql-codegen/cli": "3.2.2",
-    "@graphql-codegen/introspection": "3.0.1",
-    "@graphql-codegen/typescript": "3.0.2",
-    "@graphql-codegen/typescript-document-nodes": "3.0.2",
-    "@graphql-codegen/typescript-resolvers": "3.1.1",
-    "@types/bcrypt": "^5.0.0",
-    "@types/node": "^18.14.1",
-    "@typescript-eslint/eslint-plugin": "^5.53.0",
-    "@vitest/coverage-c8": "^0.29.1",
-    "babel-plugin-module-resolver": "^5.0.0",
-    "eslint": "^8.34.0",
-    "eslint-config-standard-with-typescript": "^34.0.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^15.6.1",
-    "eslint-plugin-promise": "^6.1.1",
-    "prisma": "^4.11.0",
-    "tsc-alias": "^1.8.3",
-    "tsconfig-paths": "^4.1.2",
-    "typescript": "^4.9.5",
-    "vitest": "^0.29.1"
+    "@types/nodemailer": "^6.4.7",
+    "kill-port": "^2.0.1"
   },
   "dependencies": {
-    "@apollo/server": "^4.5.0",
-    "@prisma/client": "^4.11.0",
-    "bcrypt": "^5.1.0",
-    "dotenv": "^16.0.3",
-    "graphql": "^16.6.0",
-    "graphql-scalars": "^1.20.4",
-    "mysql2": "^3.2.0",
-    "ts-node-dev": "^2.0.0"
+    "nodemailer": "^6.9.1"
   }
 }
