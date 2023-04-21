@@ -9,10 +9,6 @@
     "./packages/*"
   ],
   "devDependencies": {
-    "@types/nodemailer": "^6.4.7",
     "kill-port": "^2.0.1"
-  },
-  "dependencies": {
-    "nodemailer": "^6.9.1"
   }
 }
