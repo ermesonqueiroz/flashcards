@@ -7,3 +7,12 @@ services:
       - .env
     ports:
       - '33060:3306'
+  mailcatcher:
+    container_name: mailcatcher
+    image: dockage/mailcatcher
+    expose:
+      - 1080
+      - 1025
+    ports:
+      - 1080:1080
+      - 1025:1025
