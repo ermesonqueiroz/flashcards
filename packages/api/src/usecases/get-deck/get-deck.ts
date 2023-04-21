@@ -1,6 +1,6 @@
-import { left, right } from '@common/either'
-import { type CardsRepository, type DecksRepository } from '@repositories/ports'
-import { CannotFindDeckError } from '@usecases/errors/cannot-find-deck'
+import { left, right } from '@/common/either'
+import { type CardsRepository, type DecksRepository } from '@/repositories/ports'
+import { CannotFindDeckError } from '@/usecases/errors/cannot-find-deck'
 import { type GetDeckRequest } from './get-deck-request'
 import { type GetDeckResponse } from './get-deck-response'
 

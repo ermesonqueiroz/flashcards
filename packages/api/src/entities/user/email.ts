@@ -1,5 +1,5 @@
-import { type Either, left, right } from '@common/either'
-import { InvalidEmailError } from '@entities/errors/user'
+import { type Either, left, right } from '@/common/either'
+import { InvalidEmailError } from '@/entities/errors/user'
 
 export class Email {
   public readonly value: string

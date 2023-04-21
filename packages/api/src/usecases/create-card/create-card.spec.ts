@@ -1,5 +1,5 @@
-import { left } from '@common/either'
-import { InvalidDefinitionError, InvalidTermError } from '@entities/errors/card'
+import { left } from '@/common/either'
+import { InvalidDefinitionError, InvalidTermError } from '@/entities/errors/card'
 import { InMemoryCardsRepository } from 'src/repositories/in-memory/cards-repository'
 import { describe, expect, it } from 'vitest'
 import { CreateCardUseCase } from './create-card'

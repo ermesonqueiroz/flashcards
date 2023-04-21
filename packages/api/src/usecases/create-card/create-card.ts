@@ -1,7 +1,7 @@
-import { left, right } from '@common/either'
-import { Card } from '@entities/card'
+import { left, right } from '@/common/either'
+import { Card } from '@/entities/card'
 import { randomUUID } from 'crypto'
-import { type CardsRepository } from 'src/repositories/ports/cards-repository'
+import { type CardsRepository } from '@/repositories/ports/cards-repository'
 import { type CreateCardRequest } from './create-card-request'
 import { type CreateCardResponse } from './create-card-response'
 

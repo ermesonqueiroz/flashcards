@@ -1,6 +1,6 @@
-import { left, right } from '@common/either'
-import { type CardsRepository } from '@repositories/ports'
-import { CannotFindCardError } from '@usecases/errors/cannot-find-card'
+import { left, right } from '@/common/either'
+import { type CardsRepository } from '@/repositories/ports'
+import { CannotFindCardError } from '@/usecases/errors/cannot-find-card'
 import { type MarkCardAsDoneRequest } from './mark-card-as-done-request'
 import { type MarkCardAsDoneResponse } from './mark-card-as-done-response'
 

@@ -1,5 +1,5 @@
-import { type Either, left, right } from '@common/either'
-import { InvalidTitleError } from '@entities/errors/deck'
+import { type Either, left, right } from '@/common/either'
+import { InvalidTitleError } from '@/entities/errors/deck'
 
 export class Title {
   private readonly title: string

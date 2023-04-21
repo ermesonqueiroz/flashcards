@@ -1,6 +1,6 @@
-import { type DeckData } from '@entities/deck'
+import { type DeckData } from '@/entities/deck'
 import { type PrismaClient } from '@prisma/client'
-import { type DecksRepository } from '@repositories/ports'
+import { type DecksRepository } from '@/repositories/ports'
 
 export class PrismaDecksRepository implements DecksRepository {
   public constructor (private readonly prisma: PrismaClient) {}

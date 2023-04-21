@@ -1,6 +1,6 @@
-import { type Either, left, right } from '@common/either'
-import { MailServiceError } from '@usecases/errors/email-service'
-import { type EmailService, type EmailOptions } from '@usecases/ports/email-service'
+import { type Either, left, right } from '@/common/either'
+import { MailServiceError } from '@/usecases/errors/email-service'
+import { type EmailService, type EmailOptions } from '@/usecases/ports/email-service'
 import * as nodemailer from 'nodemailer'
 
 export class NodemailerEmailService implements EmailService {

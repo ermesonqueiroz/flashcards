@@ -1,4 +1,4 @@
-import { type Id } from '@entities/common/id'
+import { type Id } from '@/entities/common/id'
 import { type Email } from './email'
 import { type Password } from './password'
 

@@ -1,5 +1,5 @@
-import { type DeckData } from '@entities/deck'
-import { type DecksRepository } from '../ports/decks-repository'
+import { type DeckData } from '@/entities/deck'
+import { type DecksRepository } from '@/repositories/ports/decks-repository'
 
 export class InMemoryDecksRepository implements DecksRepository {
   private readonly items: DeckData[]

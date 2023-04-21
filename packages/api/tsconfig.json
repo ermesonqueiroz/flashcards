@@ -12,18 +12,7 @@
     "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {
-      "@common/*": [
-        "./src/common/*"
-      ],
-      "@entities/*": [
-        "./src/entities/*"
-      ],
-      "@repositories/*": [
-        "./src/repositories/*"
-      ],
-      "@usecases/*": [
-        "./src/usecases/*"
-      ]
+      "@/*": ["./src/*"]
     },
   },
   "include": ["src/**/*"]

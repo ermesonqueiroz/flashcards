@@ -1,6 +1,6 @@
-import { type CardData } from '@entities/card'
+import { type CardData } from '@/entities/card'
 import { type PrismaClient } from '@prisma/client'
-import { type CardsRepository } from '@repositories/ports'
+import { type CardsRepository } from '@/repositories/ports'
 
 export class PrismaCardsRepository implements CardsRepository {
   public constructor (private readonly prisma: PrismaClient) {}

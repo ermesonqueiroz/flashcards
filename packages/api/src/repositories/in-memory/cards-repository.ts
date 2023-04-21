@@ -1,5 +1,5 @@
-import { type CardData } from '@entities/card'
-import { type CardsRepository } from '../ports/cards-repository'
+import { type CardData } from '@/entities/card'
+import { type CardsRepository } from '@/repositories/ports/cards-repository'
 
 export class InMemoryCardsRepository implements CardsRepository {
   private readonly items: CardData[]

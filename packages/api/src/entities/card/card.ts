@@ -1,10 +1,10 @@
 import { type CardData } from './card-data'
-import { left, right, type Either } from '@common/either'
+import { left, right, type Either } from '@/common/either'
 import { Term } from './term'
 import { Definition } from './definition'
-import { InvalidDefinitionError, InvalidTermError } from '@entities/errors/card'
-import { Id } from '@entities/common/id'
-import { InvalidIdError } from '@entities/errors/id'
+import { InvalidDefinitionError, InvalidTermError } from '@/entities/errors/card'
+import { Id } from '@/entities/common/id'
+import { InvalidIdError } from '@/entities/errors/id'
 
 export class Card {
   public readonly id: Id

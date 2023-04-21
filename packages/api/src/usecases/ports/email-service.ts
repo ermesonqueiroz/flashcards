@@ -1,5 +1,5 @@
-import { type Either } from '@common/either'
-import { type MailServiceError } from '@usecases/errors/email-service'
+import { type Either } from '@/common/either'
+import { type MailServiceError } from '@/usecases/errors/email-service'
 
 export interface EmailOptions {
   readonly host: string

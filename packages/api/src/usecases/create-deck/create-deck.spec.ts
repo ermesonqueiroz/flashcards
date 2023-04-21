@@ -1,6 +1,6 @@
-import { left } from '@common/either'
-import { InvalidTitleError } from '@entities/errors/deck'
-import { InMemoryDecksRepository } from '@repositories/in-memory'
+import { left } from '@/common/either'
+import { InvalidTitleError } from '@/entities/errors/deck'
+import { InMemoryDecksRepository } from '@/repositories/in-memory'
 import { describe, expect, it } from 'vitest'
 import { CreateDeckUseCase } from './create-deck'
 

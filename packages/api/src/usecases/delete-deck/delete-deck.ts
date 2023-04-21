@@ -1,6 +1,6 @@
-import { left, right } from '@common/either'
-import { type DecksRepository } from '@repositories/ports'
-import { CannotFindDeckError } from '@usecases/errors/cannot-find-deck'
+import { left, right } from '@/common/either'
+import { type DecksRepository } from '@/repositories/ports'
+import { CannotFindDeckError } from '@/usecases/errors/cannot-find-deck'
 import { type DeleteDeckRequest } from './delete-deck-request'
 import { type DeleteDeckResponse } from './delete-deck-response'
 

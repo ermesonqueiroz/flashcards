@@ -1,4 +1,4 @@
-import { type DomainError } from '../domain-error'
+import { type DomainError } from '@/entities/errors'
 
 export class InvalidDefinitionError extends Error implements DomainError {
   public constructor (definition: string) {

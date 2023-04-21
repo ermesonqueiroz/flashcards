@@ -1,5 +1,5 @@
-import { left } from '@common/either'
-import { InvalidTitleError } from '@entities/errors/deck/invalid-title'
+import { left } from '@/common/either'
+import { InvalidTitleError } from '@/entities/errors/deck/invalid-title'
 import { randomUUID } from 'crypto'
 import { describe, expect, it } from 'vitest'
 import { Deck } from './deck'

@@ -1,7 +1,7 @@
-import { left, right } from '@common/either'
-import { Deck } from '@entities/deck'
+import { left, right } from '@/common/either'
+import { Deck } from '@/entities/deck'
 import { randomUUID } from 'crypto'
-import { type DecksRepository } from 'src/repositories/ports/decks-repository'
+import { type DecksRepository } from '@/repositories/ports/decks-repository'
 import { type CreateDeckRequest } from './create-deck-request'
 import { type CreateDeckResponse } from './create-deck-response'
 

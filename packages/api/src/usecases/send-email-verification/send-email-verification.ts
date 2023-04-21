@@ -1,8 +1,8 @@
-import { left, right } from '@common/either'
-import { EmailActivationCode } from '@entities/email-activation/email-activation'
-import { type EmailActivationCodesRepository } from '@repositories/ports/email-activation-codes'
-import { MailServiceError } from '@usecases/errors/email-service'
-import { type EmailOptions, type EmailService } from '@usecases/ports/email-service'
+import { left, right } from '@/common/either'
+import { EmailActivationCode } from '@/entities/email-activation/email-activation'
+import { type EmailActivationCodesRepository } from '@/repositories/ports/email-activation-codes'
+import { MailServiceError } from '@/usecases/errors/email-service'
+import { type EmailOptions, type EmailService } from '@/usecases/ports/email-service'
 import dayjs from 'dayjs'
 
 export class SendEmailVerificationUseCase {

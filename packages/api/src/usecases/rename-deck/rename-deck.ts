@@ -1,7 +1,7 @@
-import { left, right } from '@common/either'
-import { Deck } from '@entities/deck'
-import { type DecksRepository } from '@repositories/ports'
-import { CannotFindDeckError } from '@usecases/errors/cannot-find-deck'
+import { left, right } from '@/common/either'
+import { Deck } from '@/entities/deck'
+import { type DecksRepository } from '@/repositories/ports'
+import { CannotFindDeckError } from '@/usecases/errors/cannot-find-deck'
 import { type RenameDeckRequest } from './rename-deck-request'
 import { type RenameDeckResponse } from './rename-deck-response'
 

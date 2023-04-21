@@ -1,6 +1,6 @@
-import { type Either, left, right } from '@common/either'
-import { type InvalidEmailError } from '@entities/errors/user'
-import { Email } from '@entities/user/email'
+import { type Either, left, right } from '@/common/either'
+import { type InvalidEmailError } from '@/entities/errors/user'
+import { Email } from '@/entities/user/email'
 import { type EmailActivationCodeData } from './email-activation-data'
 
 export class EmailActivationCode {

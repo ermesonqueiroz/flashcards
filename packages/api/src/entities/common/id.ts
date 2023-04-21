@@ -1,5 +1,5 @@
-import { type Either, left, right } from '@common/either'
-import { InvalidIdError } from '@entities/errors/id'
+import { type Either, left, right } from '@/common/either'
+import { InvalidIdError } from '@/entities/errors/id'
 
 export class Id {
   public readonly id: string

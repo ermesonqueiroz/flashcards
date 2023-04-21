@@ -1,7 +1,7 @@
-import { type Either, right, left } from '@common/either'
-import { Id } from '@entities/common/id'
-import { InvalidTitleError } from '@entities/errors/deck'
-import { InvalidIdError } from '@entities/errors/id'
+import { type Either, right, left } from '@/common/either'
+import { Id } from '@/entities/common/id'
+import { InvalidTitleError } from '@/entities/errors/deck'
+import { InvalidIdError } from '@/entities/errors/id'
 import { type DeckData } from './deck-data'
 import { Title } from './title'
 
