@@ -19,4 +19,25 @@ export class InMemoryDecksRepository implements DecksRepository {
   public async findAll (): Promise<DeckData[]> {
     return this.items
   }
+
+  public async delete (id: string): Promise<DeckData | null> {
+    const index = this.items.findIndex((deck) => deck.id === id)
+    const deck = this.items[index]
+
+    this.items.splice(index)
+
+    return deck
+  }
+
+  public async update (id: string, data: Partial<Omit<DeckData, 'id'>>): Promise<DeckData | null> {
+    const index = this.items.findIndex((deck) => deck.id === id)
+    const deck = {
+      ...this.items[index],
+      ...data
+    }
+
+    this.items[index] = deck
+
+    return deck
+  }
 }
