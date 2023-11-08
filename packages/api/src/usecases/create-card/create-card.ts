@@ -1,15 +1,18 @@
 import { left, right } from '@/common/either'
 import { Card } from '@/entities/card'
-import { randomUUID } from 'crypto'
 import { type CardsRepository } from '@/repositories/ports/cards-repository'
 import { type CreateCardRequest } from './create-card-request'
 import { type CreateCardResponse } from './create-card-response'
+import { type UuidService } from '../ports/uuid-service'
 
 export class CreateCardUseCase {
-  public constructor (private readonly cardsRepository: CardsRepository) {}
+  public constructor (
+    private readonly cardsRepository: CardsRepository,
+    private readonly uuidService: UuidService
+  ) {}
 
   public async execute ({ deckId, term, definition }: CreateCardRequest): Promise<CreateCardResponse> {
-    const id = randomUUID()
+    const id = this.uuidService.generate()
 
     const cardOrError = Card.create({
       id,
