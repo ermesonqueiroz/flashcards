@@ -1,27 +1,43 @@
 import { left } from '@/common/either'
 import { InvalidTitleError } from '@/entities/errors/deck'
 import { InMemoryDecksRepository } from '@/repositories/in-memory'
-import { describe, expect, it } from 'vitest'
 import { CreateDeckUseCase } from './create-deck'
+import { UuidServiceStub } from '../__mocks__/uuid-service'
+
+afterEach(() => {
+  jest.restoreAllMocks()
+})
+
+function makeSut () {
+  const uuidServiceStub = new UuidServiceStub()
+  const decksRepository = new InMemoryDecksRepository([])
+  const sut = new CreateDeckUseCase(decksRepository, uuidServiceStub)
+
+  return { uuidServiceStub, sut }
+}
 
 describe('Create deck use case', () => {
   it('should create deck', async () => {
-    const decksRepository = new InMemoryDecksRepository([])
-    const createCardUseCase = new CreateDeckUseCase(decksRepository)
+    const { sut, uuidServiceStub } = makeSut()
+    uuidServiceStub.generate.mockReturnValue('id')
 
-    const response = await createCardUseCase.execute({
+    const response = await sut.execute({
       title: 'Foo'
     })
 
     expect(response.isRight()).toBeTruthy()
+    expect(response.value).toEqual({
+      id: 'id',
+      title: 'Foo'
+    })
   })
 
   it('should not create deck with blank title', async () => {
-    const cardsRepository = new InMemoryDecksRepository([])
-    const createCardUseCase = new CreateDeckUseCase(cardsRepository)
+    const { sut, uuidServiceStub } = makeSut()
+    uuidServiceStub.generate.mockReturnValue('id')
 
     const title = '      '
-    const response = await createCardUseCase.execute({
+    const response = await sut.execute({
       title
     })
 
@@ -29,17 +45,17 @@ describe('Create deck use case', () => {
   })
 
   it('should create deck without blank spaces in title', async () => {
-    const cardsRepository = new InMemoryDecksRepository([])
-    const createCardUseCase = new CreateDeckUseCase(cardsRepository)
+    const { sut, uuidServiceStub } = makeSut()
+    uuidServiceStub.generate.mockReturnValue('id')
 
-    const title = '   Foo   !'
-    const response = await createCardUseCase.execute({
-      title
+    const response = await sut.execute({
+      title: '   Foo   !'
     })
 
-    const expectedTitle = 'Foo !'
-
     expect(response.isRight()).toBeTruthy()
-    expect(response.value).property('title').equal(expectedTitle)
+    expect(response.value).toEqual({
+      id: 'id',
+      title: 'Foo !'
+    })
   })
 })

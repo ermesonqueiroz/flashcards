@@ -1,15 +1,18 @@
 import { left, right } from '@/common/either'
 import { Deck } from '@/entities/deck'
-import { randomUUID } from 'crypto'
 import { type DecksRepository } from '@/repositories/ports/decks-repository'
 import { type CreateDeckRequest } from './create-deck-request'
 import { type CreateDeckResponse } from './create-deck-response'
+import { type UuidService } from '@/usecases/ports/uuid-service'
 
 export class CreateDeckUseCase {
-  public constructor (private readonly cardsRepository: DecksRepository) {}
+  public constructor (
+    private readonly cardsRepository: DecksRepository,
+    private readonly uuidService: UuidService
+  ) {}
 
   public async execute ({ title }: CreateDeckRequest): Promise<CreateDeckResponse> {
-    const id = randomUUID()
+    const id = this.uuidService.generate()
 
     const deckOrError = Deck.create({
       id,
