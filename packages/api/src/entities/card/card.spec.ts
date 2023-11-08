@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest'
 import { left } from '@/common/either'
 import { Card } from './card'
 import { InvalidTermError, InvalidDefinitionError } from '@/entities/errors/card'
