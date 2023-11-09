@@ -1,5 +1,5 @@
 import { left, right } from '@/common/either'
-import { Deck } from '@/entities/deck'
+import { Title } from '@/entities/deck'
 import { type DecksRepository } from '@/repositories/ports'
 import { CannotFindDeckError } from '@/usecases/errors/cannot-find-deck'
 import { type RenameDeckRequest } from './rename-deck-request'
@@ -12,8 +12,8 @@ export class RenameDeckUseCase {
     const deck = await this.decksRepository.findById(id)
     if (!deck) return left(new CannotFindDeckError(id))
 
-    const newDeckOrError = Deck.create({ id, title })
-    if (newDeckOrError.isLeft()) return left(newDeckOrError.value)
+    const titleOrError = Title.create(title)
+    if (titleOrError.isLeft()) return left(titleOrError.value)
 
     await this.decksRepository.update(id, {
       title
