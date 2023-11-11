@@ -10,7 +10,7 @@
     "dev": "ts-node-dev -r tsconfig-paths/register src/main/server.ts",
     "predev": "npm run services:up",
     "postdev": "npm run services:stop",
-    "build": "npm run generate && tsc && tsc-alias -p tsconfig.json",
+    "build": "tsc && tsc-alias -p tsconfig.json",
     "start": "npm run build && node .",
     "services:up": "docker compose -f docker-compose.development.yml up -d",
     "services:stop": "docker compose -f docker-compose.development.yml stop",
