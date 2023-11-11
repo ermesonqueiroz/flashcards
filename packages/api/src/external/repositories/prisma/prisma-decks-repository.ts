@@ -1,12 +1,10 @@
 import { type DeckData } from '@/entities/deck'
-import { type PrismaClient } from '@prisma/client'
 import { type DecksRepository } from '@/repositories/ports'
+import { PrismaHelper } from './helper'
 
 export class PrismaDecksRepository implements DecksRepository {
-  public constructor (private readonly prisma: PrismaClient) {}
-
   public async add ({ id, title }: DeckData): Promise<void> {
-    await this.prisma.deck.create({
+    await PrismaHelper.client.deck.create({
       data: {
         id,
         title
@@ -15,7 +13,7 @@ export class PrismaDecksRepository implements DecksRepository {
   }
 
   public async findAll (): Promise<DeckData[]> {
-    const decks = await this.prisma.deck.findMany()
+    const decks = await PrismaHelper.client.deck.findMany()
 
     return decks.map(deck => ({
       id: deck.id,
@@ -24,7 +22,7 @@ export class PrismaDecksRepository implements DecksRepository {
   }
 
   public async findById (id: string): Promise<DeckData | null> {
-    const deck = await this.prisma.deck.findUnique({
+    const deck = await PrismaHelper.client.deck.findUnique({
       where: {
         id
       }
@@ -43,7 +41,7 @@ export class PrismaDecksRepository implements DecksRepository {
 
     if (!deck) return null
 
-    await this.prisma.deck.delete({
+    await PrismaHelper.client.deck.delete({
       where: {
         id
       }
@@ -60,7 +58,7 @@ export class PrismaDecksRepository implements DecksRepository {
 
     if (!deck) return null
 
-    const updatedDeck = await this.prisma.deck.update({
+    const updatedDeck = await PrismaHelper.client.deck.update({
       where: {
         id
       },
