@@ -16,6 +16,6 @@ export class User {
   }
 
   get id (): string {
-    return this._id
+    return this._id.value
   }
 }
