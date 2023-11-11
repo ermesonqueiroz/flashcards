@@ -1,18 +1,22 @@
-version: '2.4'
+version: '3'
 services:
-  relearn_mysql_dev:
-    container_name: 'relearn-mysql-dev'
-    image: 'mysql'
+  memorize_mysql_dev:
+    container_name: 'memorize-mysql-dev'
+    image: mysql
     env_file:
       - .env
     ports:
+      - '3306:3306'
+  meorize_mysql_test:
+    container_name: 'memorize-mysql-test'
+    image: mysql
+    env_file:
+      - .env.test
+    ports:
       - '33060:3306'
   mailcatcher:
-    container_name: mailcatcher
-    image: dockage/mailcatcher
-    expose:
-      - 1080
-      - 1025
+    container_name: 'memorize-mailcatcher'
+    image: sj26/mailcatcher
     ports:
       - 1080:1080
       - 1025:1025
