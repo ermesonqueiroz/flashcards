@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
-  "main": "dist/main/server.js",
+  "main": "dist/src/main/server.js",
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
