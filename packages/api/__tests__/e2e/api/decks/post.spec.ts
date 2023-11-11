@@ -2,6 +2,10 @@ import request from 'supertest'
 import app from '@/main/config/app'
 import { PrismaHelper } from '@/external/repositories/prisma'
 
+afterEach(async () => {
+  await PrismaHelper.client.deck.deleteMany()
+})
+
 afterAll(async () => {
   await PrismaHelper.client.$disconnect()
 })
