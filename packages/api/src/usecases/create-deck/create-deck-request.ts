@@ -1,3 +1,3 @@
-export interface CreateDeckRequest {
-  title: string
-}
+import { type DeckData } from '@/entities/deck'
+
+export type CreateDeckRequest = DeckData

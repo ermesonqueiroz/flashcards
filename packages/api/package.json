@@ -5,7 +5,7 @@
   "private": true,
   "main": "dist/src/main/server.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --verbose",
     "coverage": "jest --coverage",
     "dev": "ts-node-dev -r tsconfig-paths/register src/main/server.ts",
     "predev": "npm run services:up",

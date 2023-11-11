@@ -1,36 +1,29 @@
 import { left, right } from '@/common/either'
-import { Deck } from '@/entities/deck'
+import { Deck, type DeckData } from '@/entities/deck'
 import { type DecksRepository } from '@/repositories/ports/decks-repository'
 import { type CreateDeckRequest } from './create-deck-request'
 import { type CreateDeckResponse } from './create-deck-response'
-import { type UuidService } from '@/usecases/ports/uuid-service'
 
-export class CreateDeckUseCase {
+export interface ICreateDeckUseCase {
+  execute: (createDeckRequest: CreateDeckRequest) => Promise<CreateDeckResponse>
+}
+
+export class CreateDeckUseCase implements ICreateDeckUseCase {
   public constructor (
-    private readonly cardsRepository: DecksRepository,
-    private readonly uuidService: UuidService
+    private readonly decksRepository: DecksRepository
   ) {}
 
-  public async execute ({ title }: CreateDeckRequest): Promise<CreateDeckResponse> {
-    const id = this.uuidService.generate()
-
-    const deckOrError = Deck.create({
-      id,
-      title
-    })
-
+  public async execute (createDeckRequest: CreateDeckRequest): Promise<CreateDeckResponse> {
+    const deckOrError = Deck.create(createDeckRequest)
     if (deckOrError.isLeft()) return left(deckOrError.value)
 
     const deck = deckOrError.value
-
-    await this.cardsRepository.add({
-      id,
+    const deckData: DeckData = {
+      id: deck.id.value,
       title: deck.title.value
-    })
+    }
 
-    return right({
-      id,
-      title: deck.title.value
-    })
+    await this.decksRepository.add(deckData)
+    return right(deckData)
   }
 }

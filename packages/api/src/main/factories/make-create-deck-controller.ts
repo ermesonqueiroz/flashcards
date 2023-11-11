@@ -6,6 +6,6 @@ import { CreateDeckUseCase } from '@/usecases/create-deck/create-deck'
 export function makeCreateDeckController (): CreateDeckController {
   const decksRepository = new PrismaDecksRepository()
   const uuidService = new NativeUuidService()
-  const createDeckUseCase = new CreateDeckUseCase(decksRepository, uuidService)
-  return new CreateDeckController(createDeckUseCase)
+  const createDeckUseCase = new CreateDeckUseCase(decksRepository)
+  return new CreateDeckController(createDeckUseCase, uuidService)
 }
