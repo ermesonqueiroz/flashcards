@@ -118,13 +118,13 @@ export function Deck() {
                     </Button>
                   ) : (
                     <ButtonGroup variant="ghost" spacing={4}>
-                      <Button onClick={() => submitHandle(1)}>
+                      <Button onClick={() => submitHandle(5)}>
                         🥱 Fácil
                       </Button>
                       <Button onClick={() => submitHandle(3)}>
                         🤨 Médio
                       </Button>
-                      <Button onClick={() => submitHandle(5)}>
+                      <Button onClick={() => submitHandle(1)}>
                         😭 Difícil
                       </Button>
                     </ButtonGroup>
