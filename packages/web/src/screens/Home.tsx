@@ -17,7 +17,7 @@ export function Home() {
         <Heading
           fontSize="3xl"
         >
-          Suas Coleções
+          Suas coleções
         </Heading>
 
         <Flex

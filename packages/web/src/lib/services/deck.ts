@@ -5,5 +5,13 @@ export const deckService = {
     await api.post('/decks', {
       name
     })
+  },
+  rename: async (id: string, name: string) => {
+    await api.patch(`/decks/${id}`, {
+      name
+    })
+  },
+  delete: async (id: string) => {
+    await api.delete(`/decks/${id}`)
   }
 }

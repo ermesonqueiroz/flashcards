@@ -1,4 +1,3 @@
-import { useMutation } from '@apollo/client'
 import {
   Card,
   CardBody,
@@ -32,19 +31,17 @@ import {
   ModalFooter,
   FormErrorMessage,
   FormHelperText,
-  Progress,
   Box
 } from '@chakra-ui/react'
 import { Field, FieldProps, Form, Formik, FormikProps } from 'formik'
 import { EditIcon, MoreHorizontalIcon, Trash2Icon } from 'lucide-react'
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { DELETE_DECK } from '../graphql/mutations/delete-deck'
-import { RENAME_DECK } from '../graphql/mutations/rename-deck'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { useAppToast } from '../hooks/toast'
 import { DecksActions } from '../lib/features/decks'
-import { DeleteDeckMutationResponse, RenameDeckMutationResponse } from '../__generated__/graphql'
+import { useLoading } from '../hooks/loading'
+import { deckService } from '../lib/services/deck'
 
 export interface DeckProps extends CardProps {
   id: string
@@ -70,26 +67,26 @@ export interface DeckSettingsProps {
 }
 
 function DeleteDeckDialog({ children, deckId: id }: DeleteDeckDialogProps) {
-  const [deleteDeck, { loading, error, data }] = useMutation<{ deleteDeck: DeleteDeckMutationResponse }>(DELETE_DECK)
   const { isOpen, onClose, onOpen } = useDisclosure()
   const cancelRef = useRef(null)
   const toast = useAppToast()
   const dispatch = useAppDispatch()
+  const { loading, withLoading } = useLoading()
+
+  const deleteDeck = withLoading(async (id: string) => {
+    await deckService.delete(id)
+  })
 
   async function deleteDeckHandle() {
-    await deleteDeck({
-      variables: {
-        id
-      }
-    })
+    await deleteDeck(id)
 
-    if (error || data?.deleteDeck?.error) {
-      return toast({
-        title: 'Não foi possível excluir a coleção.',
-        description: 'Por favor, tente novamente.',
-        status: 'error',
-      })
-    }
+    // if (error || data?.deleteDeck?.error) {
+    //   return toast({
+    //     title: 'Não foi possível excluir a coleção.',
+    //     description: 'Por favor, tente novamente.',
+    //     status: 'error',
+    //   })
+    // }
 
     dispatch(DecksActions.delete({ id }))
 
@@ -148,9 +145,14 @@ function DeleteDeckDialog({ children, deckId: id }: DeleteDeckDialogProps) {
 
 function RenameDeckDialog({ children, deckId: id, title }: RenameDeckDialogProps) {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [renameDeck, { loading, error, data }] = useMutation<{ renameDeck: RenameDeckMutationResponse }>(RENAME_DECK)
   const toast = useAppToast()
   const dispatch = useAppDispatch()
+
+  const { loading, withLoading } = useLoading()
+
+  const renameDeck = withLoading(async (name: string) => {
+    deckService.rename(id, name)
+  })
 
   return (
     <>
@@ -170,25 +172,20 @@ function RenameDeckDialog({ children, deckId: id, title }: RenameDeckDialogProps
                 title
               }}
               onSubmit={async ({ title: newTitle }) => {
-                await renameDeck({
-                  variables: {
-                    id,
-                    title: newTitle
-                  }
-                })
+                await renameDeck(newTitle)
 
-                if (data?.renameDeck?.error || error) {
-                  return toast({
-                    title: 'Não foi possível renomear a coleção.',
-                    description: 'Por favor, tente novamente.',
-                    status: 'error',
-                  })
-                }
+                // if (data?.renameDeck?.error || error) {
+                //   return toast({
+                //     title: 'Não foi possível renomear a coleção.',
+                //     description: 'Por favor, tente novamente.',
+                //     status: 'error',
+                //   })
+                // }
 
                 dispatch(
                   DecksActions.rename({
                     id,
-                    title: newTitle
+                    name: newTitle
                   })
                 )
 

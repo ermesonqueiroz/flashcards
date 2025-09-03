@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Deck } from "../../__generated__/graphql";
+import type { Deck } from "../../domain/deck";
 
 const initialState: Deck[] = []
 
@@ -16,13 +16,13 @@ export const decksSlice = createSlice({
     delete: (state, action: PayloadAction<{ id: string }>) => {
       return state.filter(({ id }) => action.payload.id !== id)
     },
-    rename: (state, action: PayloadAction<{ id: string, title: string }>) => {
+    rename: (state, action: PayloadAction<{ id: string, name: string }>) => {
       return state.map(({ id, ...deck }) =>
         action.payload.id === id
           ? {
             id,
             ...deck,
-            title: action.payload.title,
+            name: action.payload.name,
           } : {
             id,
             ...deck
