@@ -6,7 +6,6 @@ import { useAppSelector } from '../hooks/redux'
 
 export function Home() {
   const decks = useAppSelector((state) => state.decks)
-  const cards = useAppSelector((state) => state.cards)
   
   return (
     <Page>
@@ -15,9 +14,9 @@ export function Home() {
         direction="column"
       >
         <Heading
-          fontSize="3xl"
+          fontSize="2xl"
         >
-          Suas coleções
+          Coleções
         </Heading>
 
         <Flex
@@ -33,18 +32,11 @@ export function Home() {
                 id={deck.id}
                 title={deck.name}
                 termsToReview={
-                  cards
-                    .filter(({ deckId, lastView, lastDifficulty }) => {
-                      return deck.id === deckId
-                        && cardReadyToReview(lastView, lastDifficulty!)
-                    })
+                  deck.cards
+                    .filter(({ lastView, lastDifficulty }) => cardReadyToReview(lastView!, lastDifficulty!))
                     .length
                 }
-                termsLength={
-                  cards
-                    .filter(({ deckId }) => deck.id === deckId)
-                    .length
-                }
+                termsLength={deck.cards.length}
               />
             ))
           }

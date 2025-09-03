@@ -1,23 +1,27 @@
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useAppDispatch } from "./hooks/redux";
-import { CardsActions } from "./lib/features/cards";
 import { DecksActions } from "./lib/features/decks";
 import { Deck } from "./screens/Deck";
 import { Home } from './screens/Home';
 import { useQuery } from "./hooks/query";
-import type { Deck as DeckType } from "./domain/deck";
+import { Deck as DeckModel } from "./domain/deck";
+import type { IndexDecksResponse } from "./lib/types/index-decks-response";
 
 function App() {
   const dispatch = useAppDispatch()
-  const { data: decksData, execute: fetchDecks } = useQuery<{ data: DeckType[] }>('/decks')
+  const { data: decksData, execute: fetchDecks } = useQuery<IndexDecksResponse>('/decks')
 
   useEffect(() => {
     fetchDecks()
   }, [])
 
   useEffect(() => {
-    dispatch(DecksActions.mount(decksData?.data ?? []))
+    const data = decksData?.data
+      .map(DeckModel.fromJSON)
+      .map((deck) => deck.toJSON())
+
+    dispatch(DecksActions.mount(data ?? []))
   }, [decksData])
 
   return (

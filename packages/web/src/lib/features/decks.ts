@@ -1,22 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type { Deck } from "../../domain/deck";
+import type { Deck, DeckData } from "../../domain/deck";
 
-const initialState: Deck[] = []
+const initialState: DeckData[] = []
 
 export const decksSlice = createSlice({
   name: 'decks',
   initialState,
   reducers: {
-    mount: (state, action: PayloadAction<Deck[]>) => {
+    mount: (state, action: PayloadAction<DeckData[]>) => {
       return action.payload;
     },
-    add: (state, action: PayloadAction<Deck>) => {
+    add: (state, action: PayloadAction<DeckData>) => {
       return [...state, action.payload]
     },
     delete: (state, action: PayloadAction<{ id: string }>) => {
       return state.filter(({ id }) => action.payload.id !== id)
     },
-    rename: (state, action: PayloadAction<{ id: string, name: string }>) => {
+    rename: (state, action: PayloadAction<DeckData>) => {
       return state.map(({ id, ...deck }) =>
         action.payload.id === id
           ? {

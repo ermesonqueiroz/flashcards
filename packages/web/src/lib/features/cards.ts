@@ -1,22 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Card } from "../../__generated__/graphql";
+import type { CardData } from "../../domain/card";
 
-const initialState: Card[] = []
+const initialState: CardData[] = []
 
 export const cardsSlice = createSlice({
   name: 'cards',
   initialState,
   reducers: {
-    mount: (state, action: PayloadAction<Card[]>) => {
+    mount: (state, action: PayloadAction<CardData[]>) => {
       return action.payload;
     },
-    add: (state, action: PayloadAction<Card>) => {
+    add: (state, action: PayloadAction<CardData>) => {
       return [...state, action.payload]
     },
     delete: (state, action: PayloadAction<{ id: string }>) => {
       return state.filter(({ id }) => action.payload.id !== id)
     },
-    update: (state, action: PayloadAction<{ id: string, data: Omit<Card, 'id'> }>) => {
+    update: (state, action: PayloadAction<{ id: string, data: Omit<CardData, 'id'> }>) => {
       return state.map(card => {
         return card.id === action.payload.id
           ? {

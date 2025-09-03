@@ -31,7 +31,8 @@ import {
   ModalFooter,
   FormErrorMessage,
   FormHelperText,
-  Box
+  Box,
+  Badge
 } from '@chakra-ui/react'
 import { Field, FieldProps, Form, Formik, FormikProps } from 'formik'
 import { EditIcon, MoreHorizontalIcon, Trash2Icon } from 'lucide-react'
@@ -185,7 +186,8 @@ function RenameDeckDialog({ children, deckId: id, title }: RenameDeckDialogProps
                 dispatch(
                   DecksActions.rename({
                     id,
-                    name: newTitle
+                    name: newTitle,
+                    cards: []
                   })
                 )
 
@@ -321,6 +323,8 @@ export function Deck({ id, title, termsLength, termsToReview }: DeckProps) {
           >
             {title}
           </Heading>
+
+          <Badge>{termsLength}</Badge>
 
           <Spacer />
 

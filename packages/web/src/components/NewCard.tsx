@@ -23,7 +23,9 @@ import { CREATE_CARD } from '../graphql/mutations/create-card'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { useAppToast } from '../hooks/toast'
 import { CardsActions } from '../lib/features/cards'
-import { AddCardMutationResponse } from '../__generated__/graphql'
+import { useLoading } from '../hooks/loading'
+import { cardService, type CreateCard } from '../lib/services/card'
+import { Card } from '../domain/card'
 
 export interface NewCardProps {
   children: ({ onOpen }: { onOpen: () => void }) => React.ReactNode
@@ -31,31 +33,15 @@ export interface NewCardProps {
 
 export function NewCard({ children }: NewCardProps) {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [addCard, { data, loading, error }] = useMutation<{ addCard: AddCardMutationResponse }>(CREATE_CARD)
   const toast = useAppToast()
   const dispatch = useAppDispatch()
   const decks = useAppSelector(state => state.decks)
+  const { loading, withLoading } = useLoading()
 
-  useEffect(() => {
-    if (data?.addCard?.error || error) {
-      toast({
-        title: 'Não foi possível criar uma carta.',
-        description: 'Por favor, tente novamente.',
-        status: 'error',
-      })
-    }
-
-    if (data?.addCard?.body) {
-      dispatch(CardsActions.add(data?.addCard?.body))
-
-      toast({
-        title: 'Carta criada com sucesso.',
-        status: 'success',
-      })
-
-      onClose()
-    }
-  }, [data])
+  const createCard = withLoading(async (deckId: string, createCardData: CreateCard) => {
+    const data = await cardService.create(deckId, createCardData)
+    return Card.fromJSON(data)
+  })
 
   return (
     <>
@@ -78,13 +64,27 @@ export function NewCard({ children }: NewCardProps) {
                 definition: '',
               }}
               onSubmit={async ({ deckId, definition, term }) => {
-                await addCard({
-                  variables: {
-                    deckId,
-                    definition,
-                    term
-                  }
+                const card = await createCard(deckId, {
+                  term,
+                  definition
                 })
+
+                // if (data?.addCard?.error || error) {
+                //   toast({
+                //     title: 'Não foi possível criar uma carta.',
+                //     description: 'Por favor, tente novamente.',
+                //     status: 'error',
+                //   })
+                // }
+                
+                dispatch(CardsActions.add(card.toJSON()))
+
+                toast({
+                  title: 'Carta criada com sucesso.',
+                  status: 'success',
+                })
+                
+                onClose()
               }}
             >
               {(props: FormikProps<any>) => (
@@ -125,13 +125,13 @@ export function NewCard({ children }: NewCardProps) {
                         <>
                           <FormLabel mt={2}>Coleção</FormLabel>
                           <Select {...field}>
-                            <option value="">Selecione uma Coleção</option>
+                            <option value="">Selecione uma coleção</option>
                             {decks.map((deck) => (
                               <option
                                 key={deck.id}
                                 value={deck.id}
                               >
-                                {deck.title}
+                                {deck.name}
                               </option>
                             ))}
                           </Select>
