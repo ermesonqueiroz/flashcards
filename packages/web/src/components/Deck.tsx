@@ -310,7 +310,7 @@ export function Deck({ id, title, termsLength, termsToReview }: DeckProps) {
       w="full"
       maxW="370px"
     >
-      <CardBody >
+      <CardBody>
         <Flex
           alignItems="center"
           gap={2}

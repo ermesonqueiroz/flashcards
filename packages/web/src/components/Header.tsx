@@ -16,9 +16,8 @@ export function Header() {
         fontSize="2xl"
         to="/"
         fontWeight="regular"
-        textDecoration="underline"
       >
-        memorize
+        flashcards
       </Heading>
 
       <Spacer />

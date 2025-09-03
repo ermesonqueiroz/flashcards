@@ -31,7 +31,7 @@ export function Home() {
               <Deck
                 key={deck.id}
                 id={deck.id}
-                title={deck.title}
+                title={deck.name}
                 termsToReview={
                   cards
                     .filter(({ deckId, lastView, lastDifficulty }) => {

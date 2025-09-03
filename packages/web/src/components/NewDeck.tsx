@@ -1,4 +1,3 @@
-import { useMutation } from '@apollo/client'
 import {
   FormControl,
   FormLabel,
@@ -16,12 +15,10 @@ import {
   FormErrorMessage
 } from '@chakra-ui/react'
 import { Formik, Form, Field, FormikProps, FieldProps } from 'formik'
-import { useEffect } from 'react'
-import { CREATE_DECK } from '../graphql/mutations/create-deck'
 import { useAppDispatch } from '../hooks/redux'
 import { useAppToast } from '../hooks/toast'
-import { DecksActions } from '../lib/features/decks'
-import { AddDeckMutationResponse } from '../__generated__/graphql'
+import { deckService } from '../lib/services/deck'
+import { useLoading } from '../hooks/loading'
 
 export interface NewDeckProps {
   children: ({ onOpen }: { onOpen: () => void }) => React.ReactNode
@@ -29,14 +26,14 @@ export interface NewDeckProps {
 
 export function NewDeck({ children }: NewDeckProps) {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [addDeck, { data, loading, error }] = useMutation<{ addDeck: AddDeckMutationResponse }>(CREATE_DECK)
   const toast = useAppToast()
   const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    if (data?.addDeck?.body)
-      dispatch(DecksActions.add(data?.addDeck?.body))
-  }, [data])
+  const { loading, withLoading } = useLoading()
+
+  const createDeck = withLoading(async (name: string) => {
+    await deckService.create(name)
+  })
 
   return (
     <>
@@ -57,19 +54,15 @@ export function NewDeck({ children }: NewDeckProps) {
                 title: ''
               }}
               onSubmit={async ({ title }) => {
-                await addDeck({
-                  variables: {
-                    title
-                  }
-                })
+                await createDeck(title)
                 
-                if (data?.addDeck?.error || error) {
-                  return toast({
-                    title: 'Não foi possível criar uma coleção.',
-                    description: 'Por favor, tente novamente.',
-                    status: 'error',
-                  })
-                }
+                // if (data?.addDeck?.error || error) {
+                //   return toast({
+                //     title: 'Não foi possível criar uma coleção.',
+                //     description: 'Por favor, tente novamente.',
+                //     status: 'error',
+                //   })
+                // }
 
                 toast({
                   title: 'Coleção criada com sucesso.',
