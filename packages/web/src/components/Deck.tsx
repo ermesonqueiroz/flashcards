@@ -297,10 +297,6 @@ function DeckSettings({ title, deckId }: DeckSettingsProps) {
 }
 
 export function Deck({ id, title, termsLength, termsToReview }: DeckProps) {
-  const cards = useAppSelector(
-    (state) => state.cards.filter(({ deckId }) => id === deckId)!
-  )
-
   return (
     <Card
       direction="row"
@@ -323,8 +319,6 @@ export function Deck({ id, title, termsLength, termsToReview }: DeckProps) {
           >
             {title}
           </Heading>
-
-          <Badge>{termsLength}</Badge>
 
           <Spacer />
 

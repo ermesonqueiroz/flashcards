@@ -16,7 +16,7 @@ export const cardsSlice = createSlice({
     delete: (state, action: PayloadAction<{ id: string }>) => {
       return state.filter(({ id }) => action.payload.id !== id)
     },
-    update: (state, action: PayloadAction<{ id: string, data: Omit<CardData, 'id'> }>) => {
+    update: (state, action: PayloadAction<{ id: string, data: Omit<Partial<CardData>, 'id'> }>) => {
       return state.map(card => {
         return card.id === action.payload.id
           ? {

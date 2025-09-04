@@ -1,11 +1,12 @@
-
-import { Box, Button, ButtonGroup, Card, CardBody, CardHeader, Collapse, Flex, Heading, SlideFade, Text, useDisclosure } from "@chakra-ui/react";
-import { useEffect, useMemo, useState } from "react";
+import { Box, Button, ButtonGroup, Card, CardBody, Collapse, Flex, Heading, SlideFade, Text, useDisclosure } from "@chakra-ui/react";
+import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { cardReadyToReview } from "../common/cardReadyToReview";
 import { Page } from "../components/Page";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import type { CardData } from "../domain/card";
+import { useLoading } from "../hooks/loading";
+import { cardService } from "../lib/services/card";
+import { CardsActions } from "../lib/features/cards";
 
 export function Deck() {
   const { deckId } = useParams()
@@ -21,20 +22,14 @@ export function Deck() {
   )
 
   const dispatch = useAppDispatch()
+  const { loading, withLoading } = useLoading()
   
   const { isOpen: showDefinition, onToggle: toggleShowDefinition } = useDisclosure()
   const { isOpen: finishedDeck, onToggle: toggleFinishedDeck } = useDisclosure()
 
-  // useEffect(() => {
-  //   if (data?.cardDone?.body) {
-  //     dispatch(
-  //       CardsActions.update({
-  //         id: activeCard?.id!,
-  //         data: data?.cardDone?.body,
-  //       })
-  //     )
-  //   }
-  // }, [data])
+  const markCardAsDone = withLoading(async (cardId: string, difficulty: number) => {
+    await cardService.markCardAsRead(cardId, difficulty)
+  })
 
   function nextCard() {
     if (cards[activeCardIndex + 1]) {
@@ -47,12 +42,17 @@ export function Deck() {
   }
 
   async function submitHandle(difficulty: number) {
-    // await markCardAsDone({
-    //   variables: {
-    //     cardId: activeCard?.id,
-    //     difficulty,
-    //   }
-    // })
+    await markCardAsDone(activeCard?.id, difficulty)
+
+    dispatch(
+      CardsActions.update({
+        id: activeCard?.id!,
+        data: {
+          lastDifficulty: difficulty,
+          lastView: new Date().toISOString()
+        },
+      })
+    )
 
     nextCard()
   }
@@ -103,7 +103,7 @@ export function Deck() {
           </Card>
 
           {
-            activeCardIndex < cards.length - 1 && (
+            activeCardIndex < cards.length && (
               <Flex
                 marginX="auto"
                 mt={8}

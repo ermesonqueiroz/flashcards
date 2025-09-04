@@ -76,7 +76,7 @@ export function NewCard({ children }: NewCardProps) {
                 //     status: 'error',
                 //   })
                 // }
-                
+
                 dispatch(CardsActions.add(card.toJSON()))
 
                 toast({
